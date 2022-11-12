@@ -31,12 +31,13 @@ struct Player {
 }
 
 fn setup_player(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let ship_texture = asset_server.load("textures/ship_C.png");
+    let ship_texture = asset_server.load("textures/ship.png");
 
     // player controlled ship
     commands
         .spawn_bundle(SpriteBundle {
             texture: ship_texture,
+            transform: Transform::from_scale(Vec3::splat(0.5)),
             ..default()
         })
         .insert(Player {
@@ -45,7 +46,7 @@ fn setup_player(mut commands: Commands, asset_server: Res<AssetServer>) {
             movement_acceleration: 10.0,
             max_speed: option_env!("PLAYER_MAX_SPEED")
                 .map(|s| s.parse().unwrap())
-                .unwrap_or(400.0),
+                .unwrap_or(250.0),
             fire_cooldown: Cooldown::new(Duration::from_millis(250)),
         });
 }
